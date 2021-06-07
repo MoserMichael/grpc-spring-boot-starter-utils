@@ -9,3 +9,5 @@ This small project adds a grpc ServerInterceptor that does several things;
 # dependencies
 
 When working with spring, one is often challenged to find the correct set of dependencies, luckily we have the grpc-spring-boot-starter in this case [dependency matrix](https://github.com/LogNet/grpc-spring-boot-starter/blob/master/ReleaseNotes.md) 
+
+Also nowadays one should use [maven central](https://search.maven.org/) repository, jcentral has become read only (see [announcement](https://developer.android.com/studio/build/jcenter-migration) )
