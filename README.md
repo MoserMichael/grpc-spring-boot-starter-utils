@@ -6,4 +6,6 @@ This small project adds a grpc ServerInterceptor that does several things;
 - catch unhandled exceptions and pass an exception back to the client that includes the cause of the server exception and it's stack trace. This makes it a bit easier to track problems by looking at the error that is available at the client side.
  
 
+# dependencies
 
+When working with spring, one is often challenged to find the correct set of dependencies, luckily we have the grpc-spring-boot-starter in this case [dependency matrix](https://github.com/LogNet/grpc-spring-boot-starter/blob/master/ReleaseNotes.md) 
