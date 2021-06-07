@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package springutils.grpc.test.pb;
+
+option java_package = "springutils.grpc.test.pb";
+option java_multiple_files = true;
+
+import "google/protobuf/empty.proto";
+
+
+
+message LocalTimeRequest {
+    string format = 1;
+}
+
+message LocalTimeResponse {
+    string time = 1;
+    string current_time_zone = 2;
+}
+
+
+message TimeWithZoneRequest {
+    string format = 1;
+    string time_zone = 2;
+}
+
+message TimeWithZoneResponse {
+    string time = 1;
+    string time_zone = 2;
+}
+
+
+service GetTimeService {
+
+  rpc GetLocalTime (LocalTimeRequest) returns (LocalTimeResponse) {
+  }
+
+  rpc GetTimeWithZone (TimeWithZoneRequest) returns (TimeWithZoneResponse) {
+  }
+
+  rpc ThrowRuntimeException(google.protobuf.Empty) returns (google.protobuf.Empty) {
+  }
+
+}
+

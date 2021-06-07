@@ -1,0 +1,15 @@
+# mask values:
+#   2 - show argument object
+#   4 - show http headers
+#   8 - show response object
+default-mask: 0
+services:
+  - class: springutils.grpc.test.pb.GetTimeService
+    mask: 10
+    methods:
+      - method: GetLocalTime
+        mask: 2
+      - method: GetTimeWithZone
+        mask: 14
+      
+
