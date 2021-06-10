@@ -41,5 +41,8 @@ service GetTimeService {
   rpc ThrowRuntimeException(google.protobuf.Empty) returns (google.protobuf.Empty) {
   }
 
+   rpc ThrowStatusException(google.protobuf.Empty) returns (google.protobuf.Empty) {
+   }
+
 }
 

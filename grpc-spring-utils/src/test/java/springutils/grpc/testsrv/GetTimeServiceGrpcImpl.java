@@ -3,7 +3,12 @@ package springutils.grpc.testsrv;
 import io.grpc.BindableService;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import springutils.GrpcServerTest;
 import springutils.grpc.test.pb.*;
+import static io.grpc.Status.*;
+import io.grpc.StatusRuntimeException;
 
 import javax.management.RuntimeErrorException;
 import java.time.ZoneId;
@@ -14,6 +19,8 @@ import java.util.TimeZone;
 
 @GRpcService
 public class GetTimeServiceGrpcImpl extends GetTimeServiceGrpc.GetTimeServiceImplBase {
+
+    private static final Logger logger = LoggerFactory.getLogger(GetTimeServiceGrpcImpl.class);
 
     private String currentTimeZone = "unnown";
 
@@ -82,6 +89,16 @@ public class GetTimeServiceGrpcImpl extends GetTimeServiceGrpc.GetTimeServiceImp
 
     @Override
     public void throwRuntimeException(com.google.protobuf.Empty request, StreamObserver<com.google.protobuf.Empty> response) {
+        logger.info("throwing runtime exception");
         throw new RuntimeException("runtime exception");
     }
+
+    @Override
+    public void throwStatusException(com.google.protobuf.Empty request, StreamObserver<com.google.protobuf.Empty> response) {
+
+        logger.info("throwing status exception");
+
+        throw new StatusRuntimeException(ALREADY_EXISTS.withDescription("fpp exists already"));
+    }
+
 }

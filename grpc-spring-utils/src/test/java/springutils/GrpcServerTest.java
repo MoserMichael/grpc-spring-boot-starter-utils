@@ -40,7 +40,7 @@ public class GrpcServerTest {
     private ManagedChannel chan;
     private GetTimeServiceGrpc.GetTimeServiceBlockingStub stub;
 
-    private static final Logger logger = LoggerFactory.getLogger(LogCallInterceptor.class);
+    private static final Logger logger = LoggerFactory.getLogger(GrpcServerTest.class);
 
     private void initTest() {
 
@@ -98,6 +98,7 @@ public class GrpcServerTest {
 
         shutdownTest();
     }
+
     @Test
     public void testException() {
         initTest();
@@ -109,6 +110,31 @@ public class GrpcServerTest {
             logger.info("got exception {}", ex.getMessage());
         }
         assertTrue(expectedException);
+
+        try {
+            var resp = stub.throwRuntimeException(com.google.protobuf.Empty.newBuilder().build());
+        } catch(Throwable ex) {
+            expectedException = ex.getMessage().indexOf("***eof server exception***") != -1;
+            logger.info("got exception {}", ex);
+        }
+        assertTrue(expectedException);
+
         shutdownTest();
     }
+
+    @Test
+    public void testStatusException() {
+        initTest();
+        boolean expectedException = false;
+        try {
+            var resp = stub.throwStatusException(com.google.protobuf.Empty.newBuilder().build());
+        } catch(Throwable ex) {
+            expectedException = ex.getMessage().indexOf("***eof server exception***") != -1;
+            logger.info("got exception {}", ex);
+
+        }
+        assertTrue(expectedException);
+        shutdownTest();
+    }
+
 }
