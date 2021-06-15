@@ -116,6 +116,8 @@ public class LogCallInterceptor implements ServerInterceptor {
 
             private <ReqT, RespT> void handleEndpointException(Throwable ex, ServerCall<ReqT, RespT> serverCall) {
 
+                log.error("exception during grpc call", ex);
+
                 Metadata metadata = Status.trailersFromThrowable(ex);
                 if (metadata == null) {
                     metadata = new Metadata();
